@@ -2,6 +2,7 @@ package com.talch.ex.service;
 
 
 import com.talch.ex.beans.Users;
+import org.springframework.http.ResponseEntity;
 
 public interface Facade {
 
@@ -9,5 +10,8 @@ public interface Facade {
 
     Users getUserByToken(String token);
 
+    ResponseEntity<?> login(String token, String email, String password);
+
+    ResponseEntity<?> register(Users user);
 
 }

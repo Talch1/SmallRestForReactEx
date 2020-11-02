@@ -32,10 +32,20 @@ public class UsersService implements Facade {
         return repo.findByToken(token).orElse(null);
     }
 
-    public  ResponseEntity<?> login( String token, String email, String password){
-        Optional <Users> user = repo.findByToken(token);
-        if ((user.isPresent()) && (user.get().getPassword().equals(password)) && (user.get().getEmail().equals(email))){
+    @Override
+    public ResponseEntity<?> login(String token, String email, String password) {
+        Optional<Users> user = repo.findByToken(token);
+        if ((user.isPresent()) && (user.get().getPassword().equals(password)) && (user.get().getEmail().equals(email))) {
             return ResponseEntity.status(HttpStatus.OK).body(user.get());
-        }else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect email or password");
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect email or password");
+    }
+
+    @Override
+    public ResponseEntity<?> register(Users user) {
+        if (repo.findByToken(user.getToken()).isPresent() || repo.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user is exist");
+        } else {
+          return   ResponseEntity.status(HttpStatus.OK).body(repo.save(user));
+        }
     }
 }
