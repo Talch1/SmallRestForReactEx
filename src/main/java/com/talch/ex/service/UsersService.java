@@ -5,7 +5,13 @@ import com.talch.ex.repo.UsersRepo;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Service
 @Data
@@ -18,11 +24,18 @@ public class UsersService implements Facade {
 
     @Override
     public Users getUserById(long id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElse(null);
     }
 
     @Override
     public Users getUserByToken(String token) {
-        return repo.findByToken(token).get();
+        return repo.findByToken(token).orElse(null);
+    }
+
+    public  ResponseEntity<?> login( String token, String email, String password){
+        Optional <Users> user = repo.findByToken(token);
+        if ((user.isPresent()) && (user.get().getPassword().equals(password)) && (user.get().getEmail().equals(email))){
+            return ResponseEntity.status(HttpStatus.OK).body(user.get());
+        }else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect email or password");
     }
 }
