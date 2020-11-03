@@ -4,7 +4,7 @@ package com.talch.ex.service;
 import com.talch.ex.beans.Users;
 import org.springframework.http.ResponseEntity;
 
-public interface Facade {
+public interface UserFacade {
 
     Users getUserById(long id);
 

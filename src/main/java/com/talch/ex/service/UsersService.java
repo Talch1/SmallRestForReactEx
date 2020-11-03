@@ -17,7 +17,7 @@ import java.util.Optional;
 @Data
 @RequiredArgsConstructor
 @Scope("prototype")
-public class UsersService implements Facade {
+public class UsersService implements UserFacade {
 
     private final UsersRepo repo;
 
@@ -45,7 +45,7 @@ public class UsersService implements Facade {
         if (repo.findByToken(user.getToken()).isPresent() || repo.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user is exist");
         } else {
-          return   ResponseEntity.status(HttpStatus.OK).body(repo.save(user));
+            return ResponseEntity.status(HttpStatus.OK).body(repo.save(user));
         }
     }
 }
