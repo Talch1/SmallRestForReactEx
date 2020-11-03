@@ -1,8 +1,7 @@
 package com.talch.ex.service;
 
-import com.talch.ex.beans.Todo;
 import com.talch.ex.beans.Users;
-import com.talch.ex.repo.TodoRepo;
+import com.talch.ex.facade.TodoFacade;
 import com.talch.ex.repo.UsersRepo;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.talch.ex.service;
+package com.talch.ex.facade;
 
 
 import com.talch.ex.beans.Users;

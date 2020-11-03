@@ -1,6 +1,7 @@
 package com.talch.ex.service;
 
 import com.talch.ex.beans.Users;
+import com.talch.ex.facade.UserFacade;
 import com.talch.ex.repo.UsersRepo;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
