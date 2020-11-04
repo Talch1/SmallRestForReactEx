@@ -1,5 +1,6 @@
 package com.talch.ex.beans;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -11,11 +12,15 @@ import javax.persistence.Table;
 @Data
 @RequiredArgsConstructor
 @Table(name="todosTable")
+@AllArgsConstructor
 public class Todo {
 
+    @Id
+    private String id;
 
     private String description;
 
-    @Id
     private String title;
+
+
 }
