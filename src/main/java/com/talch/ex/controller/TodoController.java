@@ -1,5 +1,6 @@
 package com.talch.ex.controller;
 
+import com.talch.ex.beans.Todo;
 import com.talch.ex.beans.Users;
 import com.talch.ex.service.TodoService;
 import com.talch.ex.service.UsersService;
@@ -17,7 +18,12 @@ public class TodoController {
 
     // http://localhost:8081/api/users/todos
     @GetMapping(value = "/todos/")
-    public ResponseEntity<?> register(@RequestHeader String token) {
+    public ResponseEntity<?> todos(@RequestHeader String token) {
         return service.getTodoByUser(token);
+    }
+    // http://localhost:8081/api/users/addtodos
+    @PostMapping(value = "/addtodos/")
+    public ResponseEntity<?> addtodos(@RequestHeader String token,@RequestBody Todo todo) {
+        return service.addTodoToUser(token,todo);
     }
 }
