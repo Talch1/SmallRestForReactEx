@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Data
@@ -20,7 +21,8 @@ public class UsersService implements UserFacade {
 
     private final UsersRepo repo;
 
-
+    //String initToken = UUID.randomUUID().toString().toUpperCase();
+    private  static int initTokenForTest =1;
     @Override
     public Users getUserByEmail(String email) {
         return repo.findByEmail(email).orElse(null);
@@ -44,6 +46,8 @@ public class UsersService implements UserFacade {
         if(repo.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user is exist");
         } else {
+            user.setToken(initTokenForTest+"");
+            initTokenForTest++;
             repo.save(user);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }

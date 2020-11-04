@@ -1,5 +1,6 @@
 package com.talch.ex.service;
 
+import com.talch.ex.beans.Todo;
 import com.talch.ex.beans.Users;
 import com.talch.ex.facade.TodoFacade;
 import com.talch.ex.repo.UsersRepo;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -22,9 +24,20 @@ public class TodoService implements TodoFacade {
     private final UsersRepo usersRepo;
 
     @Override
-    public ResponseEntity<?> getTodoByUser(String userEmail, String token) {
-        Optional<Users> user = usersRepo.findByEmail(userEmail);
-        if (user.isPresent() && user.get().getToken().equals(token)) {
+    public ResponseEntity<?> getTodoByUser( String token) {
+        Optional<Users> user = usersRepo.findByToken(token);
+        if (user.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(user.get().getTodos());
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something wrong...");
+
+    }    @Override
+    public ResponseEntity<?> addTodoToUser(String token, Todo todo) {
+        Optional<Users> user = usersRepo.findByToken(token);
+        if (user.isPresent()) {
+            List<Todo> todos =user.get().getTodos();
+            todos.add(todo);
+            user.get().setTodos(todos);
+            usersRepo.save(user.get());
             return ResponseEntity.status(HttpStatus.OK).body(user.get().getTodos());
         } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something wrong...");
     }

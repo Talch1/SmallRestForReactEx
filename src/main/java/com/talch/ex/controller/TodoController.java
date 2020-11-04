@@ -17,7 +17,7 @@ public class TodoController {
 
     // http://localhost:8081/api/users/todos
     @GetMapping(value = "/todos/")
-    public ResponseEntity<?> register(@RequestHeader String token, @RequestBody Users user) {
-        return service.getTodoByUser(user.getEmail(),token);
+    public ResponseEntity<?> register(@RequestHeader String token) {
+        return service.getTodoByUser(token);
     }
 }
