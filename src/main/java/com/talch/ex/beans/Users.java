@@ -3,26 +3,23 @@ package com.talch.ex.beans;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@Table(name = "usersTable")
 @RequiredArgsConstructor
 public class Users {
-
-    @Id
-    @GeneratedValue
-    private long id;
 
     private String name;
 
     private String lastName;
 
+    @Id
     private String email;
 
     private String password;
@@ -30,5 +27,6 @@ public class Users {
     private String token;
 
     @OneToMany
+    @NotFound(action = NotFoundAction.IGNORE)
     private List<Todo> todos;
 }

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserFacade {
 
-    Users getUserById(long id);
+    Users getUserByEmail(String email);
 
     Users getUserByToken(String token);
 

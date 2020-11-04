@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface TodoFacade {
 
-    ResponseEntity<?> getTodoByUser(long userId, String token);
+    ResponseEntity<?> getTodoByUser(String userEmail, String token);
 }

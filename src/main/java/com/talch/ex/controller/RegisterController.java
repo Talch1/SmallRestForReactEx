@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Data
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping
 public class RegisterController {
 
 
@@ -18,7 +18,7 @@ public class RegisterController {
 
     // http://localhost:8081/api/users/register/"
     @PostMapping(value = "/register/")
-    public ResponseEntity<?> register(@RequestHeader String token, @RequestBody Users user) {
+    public ResponseEntity<?> register(@RequestBody Users user) {
         return service.register(user);
     }
 

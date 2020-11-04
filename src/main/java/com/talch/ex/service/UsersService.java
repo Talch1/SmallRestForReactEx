@@ -22,8 +22,8 @@ public class UsersService implements UserFacade {
 
 
     @Override
-    public Users getUserById(long id) {
-        return repo.findById(id).orElse(null);
+    public Users getUserByEmail(String email) {
+        return repo.findByEmail(email).orElse(null);
     }
 
     @Override
@@ -41,10 +41,11 @@ public class UsersService implements UserFacade {
 
     @Override
     public ResponseEntity<?> register(Users user) {
-        if (repo.findByToken(user.getToken()).isPresent() || repo.findByEmail(user.getEmail()).isPresent()) {
+        if(repo.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user is exist");
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(repo.save(user));
+            repo.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
         }
     }
 }
