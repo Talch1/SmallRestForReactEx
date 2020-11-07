@@ -16,7 +16,7 @@ public class LoginController {
 
     private final UsersService service;
 
-    // http://localhost:8081/api/users/login/"
+    // http://localhost:8081/login/"
     @PostMapping(value = "/login/")
     public ResponseEntity<?> login(@RequestHeader String token, @RequestParam String email, @RequestParam String password) {
         return service.login(token, email, password);

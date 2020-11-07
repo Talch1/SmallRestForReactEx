@@ -17,7 +17,7 @@ public class RegisterController {
 
     private final UsersService service;
 
-    // http://localhost:8081/api/users/register/"
+    // http://localhost:8081/register/"
     @PostMapping(value = "/register/")
     public ResponseEntity<?> register(@RequestBody Users user) {
         return service.register(user);

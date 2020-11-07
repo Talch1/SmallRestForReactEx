@@ -18,6 +18,7 @@ import javax.persistence.PostLoad;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Data
@@ -27,8 +28,6 @@ public class UsersService implements UserFacade {
     private final UsersRepo usersRepo;
 
     private final TodoRepo todoRepo;
-    //String initToken = UUID.randomUUID().toString().toUpperCase();
-    private static int initTokenForTest = 1;
 
     @PostConstruct
     public void init() {
@@ -62,16 +61,17 @@ public class UsersService implements UserFacade {
 
     @Override
     public ResponseEntity<?> register(Users user) {
+        String initToken = UUID.randomUUID().toString().toUpperCase();
         if (usersRepo.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user is exist");
         } else {
-            user.setToken(initTokenForTest + "");
-            initTokenForTest++;
+            user.setToken(initToken + "");
             List<Todo> initionalList = new ArrayList<>();
-            Todo inutTodo = new Todo(initTokenForTest + "todo", "do first todo", "first todo");
+            Todo inutTodo = new Todo(initToken + "todo", "do first todo", "first todo");
             todoRepo.save(inutTodo);
             initionalList.add(inutTodo);
             user.setTodos(initionalList);
+            System.out.println(user);
             usersRepo.save(user);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
