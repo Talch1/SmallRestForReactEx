@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping
+@CrossOrigin("*")
 public class TodoController {
     private final TodoService service;
 
-    // http://localhost:8081/api/users/todos
+    // http://localhost:8081/todos
     @GetMapping(value = "/todos/")
     public ResponseEntity<?> todos(@RequestHeader String token) {
         return service.getTodoByUser(token);

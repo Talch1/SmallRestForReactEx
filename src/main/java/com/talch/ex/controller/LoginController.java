@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping
+@CrossOrigin(maxAge = 3600)
 public class LoginController {
 
     private final UsersService service;

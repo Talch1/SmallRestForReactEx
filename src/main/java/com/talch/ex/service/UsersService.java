@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +22,6 @@ import java.util.Optional;
 @Service
 @Data
 @RequiredArgsConstructor
-@Scope("prototype")
 public class UsersService implements UserFacade {
 
     private final UsersRepo usersRepo;
@@ -27,6 +29,18 @@ public class UsersService implements UserFacade {
     private final TodoRepo todoRepo;
     //String initToken = UUID.randomUUID().toString().toUpperCase();
     private static int initTokenForTest = 1;
+
+    @PostConstruct
+    public void init() {
+        Todo todo = new Todo("111", "Do it NoW!!!!!!!", "Do it");
+        Users user = new Users("Tom", "Fox", "Tom@gimail.com", "123456", "123", null);
+        List<Todo> todos = new ArrayList<>();
+        todos.add(todo);
+        user.setTodos(todos);
+        todoRepo.save(todo);
+        usersRepo.save(user);
+       System.out.println("1:  " + user);
+    }
 
     @Override
     public Users getUserByEmail(String email) {
@@ -53,7 +67,7 @@ public class UsersService implements UserFacade {
         } else {
             user.setToken(initTokenForTest + "");
             initTokenForTest++;
-            List<Todo> initionalList = new ArrayList<Todo>();
+            List<Todo> initionalList = new ArrayList<>();
             Todo inutTodo = new Todo(initTokenForTest + "todo", "do first todo", "first todo");
             todoRepo.save(inutTodo);
             initionalList.add(inutTodo);

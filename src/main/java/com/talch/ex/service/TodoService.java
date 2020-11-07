@@ -28,6 +28,7 @@ public class TodoService implements TodoFacade {
     @Override
     public ResponseEntity<?> getTodoByUser(String token) {
         Optional<Users> user = usersRepo.findByToken(token);
+
         if (user.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(user.get().getTodos());
         } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something wrong...");

@@ -1,6 +1,7 @@
 
 package com.talch.ex.beans;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.NotFound;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "usersTable")
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Users {
 
     private String name;
