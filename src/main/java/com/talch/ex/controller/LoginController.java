@@ -1,6 +1,7 @@
 package com.talch.ex.controller;
 
 
+import com.talch.ex.beans.Users;
 import com.talch.ex.service.UsersService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class LoginController {
 
     // http://localhost:8081/login/"
     @PostMapping(value = "/login/")
-    public ResponseEntity<?> login(@RequestHeader String token, @RequestParam String email, @RequestParam String password) {
-        return service.login(token, email, password);
+    public ResponseEntity<?> login(@RequestBody Users user) {
+        return service.login(user.getEmail(), user.getPassword());
     }
 }

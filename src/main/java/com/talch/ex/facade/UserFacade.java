@@ -10,7 +10,7 @@ public interface UserFacade {
 
     Users getUserByToken(String token);
 
-    ResponseEntity<?> login(String token, String email, String password);
+    ResponseEntity<?> login(String email, String password);
 
     ResponseEntity<?> register(Users user);
 

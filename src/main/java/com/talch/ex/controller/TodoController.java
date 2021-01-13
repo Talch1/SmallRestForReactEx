@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping
-@CrossOrigin("*")
+@CrossOrigin(maxAge = 3600)
 public class TodoController {
     private final TodoService service;
 

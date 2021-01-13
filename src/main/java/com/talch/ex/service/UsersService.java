@@ -52,10 +52,10 @@ public class UsersService implements UserFacade {
     }
 
     @Override
-    public ResponseEntity<?> login(String token, String email, String password) {
-        Optional<Users> user = usersRepo.findByToken(token);
-        if ((user.isPresent()) && (user.get().getPassword().equals(password)) && (user.get().getEmail().equals(email))) {
-            return ResponseEntity.status(HttpStatus.OK).body(user.get());
+    public ResponseEntity<?> login( String email, String password) {
+        Optional<Users> user = usersRepo.findByEmail(email);
+        if ((user.isPresent()) && (user.get().getPassword().equals(password))) {
+            return ResponseEntity.status(HttpStatus.OK).body(user.get().getToken());
         } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect email or password");
     }
 
